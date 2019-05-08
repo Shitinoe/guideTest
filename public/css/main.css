@@ -1,0 +1,153 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+body {
+    display: grid;
+    align-items: center;
+    background-color: #2771E0;
+    align-content: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+    margin: 0;
+    font-family: 'Roboto',
+        sans-serif;
+}
+
+form {
+    max-width: 400px;
+    border-radius: 5px;
+    margin: auto;
+    padding: 40px;
+    width: 100%;
+}
+
+h1 {
+    color: white;
+    text-align: center;
+    /* font-size: 1.1em; */
+    font-weight: normal;
+}
+
+form>div {
+    display: grid;
+    margin: 25px auto;
+    width: 250px;
+}
+
+form label {
+    font-size: 1em;
+    color: white;
+    margin-left: 10px;
+    position: relative;
+    top: 10px;
+    background-color: #2771E0;
+    width: 55px;
+    padding-left: 5px;
+
+}
+
+form input {
+    border: 1px solid white;
+    background-color: transparent;
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+    font-size: 1em;
+    outline: none;
+}
+
+form button {
+    border: 1px solid transparent;
+    background-color: white;
+    padding: 10px;
+    border-radius: 30px;
+    color: #2771E0;
+    font-size: 1.1em;
+    width: 250px;
+    margin: auto;
+    cursor: pointer;
+    transition: 0.4s all;
+}
+
+form button:hover {
+    border-color: white;
+    background-color: transparent;
+    color: white;
+}
+
+.fail {
+    border-color: #e16070;
+    color: #e16070;
+}
+
+.table {
+    max-width: 600px;
+    margin: auto;
+    color: white;
+    width: 100%;
+}
+
+.tableT {
+    max-width: 600px;
+    margin: auto;
+    color: white;
+    width: 100%;
+    max-height: 450px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.line,
+.lineT {
+    display: grid;
+    grid: auto / calc(50% - 40px) calc(50% - 40px) 40px 40px;
+    align-items: center;
+    margin: 5px 0;
+}
+
+.line {
+    padding-bottom: 5px;
+    border-bottom: 1px solid white;
+}
+
+.lineT {
+    margin-top: 20px;
+    border-bottom: 1px solid white;
+}
+
+.lineT>div {
+    border-right: 1px solid white;
+    padding: 10px;
+}
+
+.lineT>div:last-of-type {
+    border-right: none;
+}
+
+.lineT svg {
+    width: 20px;
+    fill: white;
+    cursor: pointer;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 3px;
+    border-radius: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
