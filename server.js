@@ -4,8 +4,16 @@ var bodyParser = require('body-parser');
 var ejs = require('ejs');
 var engine = require('ejs-mate');
 var session = require('express-session');
+var mongoose = require('mongoose');
+var MongoStore = require('connect-mongo')(session);
+var passport = require('passport');
+var flash = require('connect-flash');
 
 var app = express();
+
+mongoose.connect('mongodb://localhost/db_colaboradores');
+
+require('./config/passport');
 
 app.use(express.static('public'));
 app.engine('ejs', engine);
@@ -14,10 +22,20 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json())
 
-app.get('/', function(request,response,next){
-    response.render('index');
-})
+//Mongoose Session
+app.use(session({
+    secret: 'TestKey',
+    resave: false,
+    saveUninitialized: false,
+    store: new MongoStore({mongooseConnection: mongoose.connection})
+}));
+
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+
+require('./routes/user')(app);
 
 app.listen(3000, function(require,response){
-    console.log('Express is running at port 3000....');
+    console.log('Application is running at port 3000....');
 })
