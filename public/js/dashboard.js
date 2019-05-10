@@ -1,4 +1,4 @@
-function loadTable() {
+/*function loadTable() {
     let name = "Manolo"
     let cd = "1"
     let type = "Product Owenr"
@@ -39,4 +39,52 @@ function deleteItem(cd) {
 
         })
 }
-loadTable()
+loadTable()*/
+
+const display = (".line");
+const form = ("#form");
+const contributorUserInput = ("#contributeUserInput");
+
+const getContributors = ()=>{
+    fetch('/', {method : "get"}).then((response)=>{
+        return response.json();
+    }).then((data)=>{
+        console.log(data);
+        displayContributors(data);
+    });
+}
+
+getContributors();
+
+const resetContributeInput = ()=>{
+    contributorUserInput.val('');
+}
+
+const buildIDS = (contributor)=>{
+    return{
+        editID : "edit_" + contributor._id,
+        deleteID : "delete_" + contributor._id,
+        listItemID : "listItem_" + contributor._id,
+        contributorID : "contributor_" + contributor._id,
+    }
+}
+
+const buildTemplate = (contributor,ids)=>{
+    return `<li class="" id"${ids.listItemID}">
+                <div class="" id="${ids.contributorID}">${contributor.contributor}</div>
+                <div class=""></div>
+                <div class="">
+                    <button type="button" id="${ids.editID}">Edit</button>
+                    <button type="button" id="${ids.deleteID}">delete</button>
+                </div>
+            </li>`
+}
+
+const displayContributors = (data)=>{
+    data.forEach((todo)=>{
+        let ids = buildIDS(contributor);
+        display.append(buildTemplate(contributor,ids));
+        editContributor(contributor,ids.todoID,ids.editID);
+        deleteContributor(contributor,ids.listItemID,ids.deleteID)
+    });
+}

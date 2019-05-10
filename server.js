@@ -1,44 +1,34 @@
 var express = require('express');
-var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var validator = require('express-validator');
 var ejs = require('ejs');
 var engine = require('ejs-mate');
 var session = require('express-session');
-var mongoose = require('mongoose');
-var MongoStore = require('connect-mongo')(session);
-var passport = require('passport');
-var flash = require('connect-flash');
+var path = require('path');
 
 var app = express();
-
-mongoose.connect('mongodb://localhost/db_colaboradores');
-
-require('./config/passport');
-
 app.use(express.static('public'));
 app.engine('ejs', engine);
 app.set('view engine', 'ejs');
-app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
-app.use(validator());
+const db = require("./database/db");
 
-//Mongoose Session
-app.use(session({
-    secret: 'TestKey',
-    resave: false,
-    saveUninitialized: false,
-    store: new MongoStore({mongooseConnection: mongoose.connection})
-}));
+require('./routes/routes')(app);
 
-app.use(flash());
-app.use(passport.initialize());
-app.use(passport.session());
-
-require('./routes/user')(app);
+//database connection
+db.connect((err)=>{
+    if(err){
+        console.log('Unable to connect to database.');
+        process.exit(1);
+    }
+    else{
+        app.listen(8080,()=>{
+            console.log('successfully connected to database');
+        });
+    }
+})
 
 app.listen(3000, function(require,response){
-    console.log('Application is running at port 3000....');
+    console.log('Express is running at port 8080....');
 })
